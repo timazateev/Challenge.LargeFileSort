@@ -2,6 +2,9 @@
 
 namespace Challenge.LargeFileSort.Sorter
 {
+	/// <summary>
+	/// Implements the Timsort algorithm for sorting LineInfo objects.
+	/// </summary>
 	public static class Timsort
 	{
 		private const int RunLength = 32;
@@ -10,13 +13,12 @@ namespace Challenge.LargeFileSort.Sorter
 		/// Timsort implementation, a hybrid sorting algorithm that combines insertion sort and merge sort.
 		/// </summary>
 		/// <param name="lines">The array of LineInfo to be sorted.</param>
-		/// <param name="span">The span representing the original byte data.</param>
-		public static void RunTimsort(LineInfo[] lines, Span<byte> span)
+		public static void RunTimsort(LineInfo[] lines)
 		{
 			// Step 1: Sort small runs with insertion sort
 			for (int i = 0; i < lines.Length; i += RunLength)
 			{
-				InsertionSort.RunInsertionSort(lines, i, Math.Min(i + RunLength - 1, lines.Length - 1), span);
+				InsertionSort.RunInsertionSort(lines, i, Math.Min(i + RunLength - 1, lines.Length - 1));
 			}
 
 			// Step 2: Merge sorted runs
@@ -29,7 +31,7 @@ namespace Challenge.LargeFileSort.Sorter
 
 					if (mid < right)
 					{
-						Merge(lines, left, mid, right, span);
+						Merge(lines, left, mid, right);
 					}
 				}
 			}
@@ -43,7 +45,7 @@ namespace Challenge.LargeFileSort.Sorter
 		/// <param name="mid">The ending index of the first subarray.</param>
 		/// <param name="high">The ending index of the second subarray.</param>
 		/// <param name="span">The span representing the original byte data.</param>
-		private static void Merge(LineInfo[] lines, int low, int mid, int high, Span<byte> span)
+		private static void Merge(LineInfo[] lines, int low, int mid, int high)
 		{
 			int leftSize = mid - low + 1;
 			int rightSize = high - mid;
@@ -58,7 +60,7 @@ namespace Challenge.LargeFileSort.Sorter
 
 			while (i < leftSize && j < rightSize)
 			{
-				if (FileChunkSorterHelpers.CompareLines(in left[i], in right[j], span) <= 0)
+				if (FileChunkSorterHelpers.CompareLines(in left[i], in right[j]) <= 0)
 				{
 					lines[k++] = left[i++];
 				}

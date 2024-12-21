@@ -1,6 +1,6 @@
 ﻿namespace Challenge.LargeFileSort.Splitter
 {
-	public static class TestFileSorterHelpers
+	public static class FileSorterHelpers
 	{
 		/// <summary>
 		/// Merges sorted file chunks into a single output file using a priority queue.
