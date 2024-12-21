@@ -1,6 +1,7 @@
 ﻿using Challenge.LargeFileSort.Constants;
 using Challenge.LargeFileSort.Structures;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace Challenge.LargeFileSort.Sorter
 {
@@ -20,25 +21,26 @@ namespace Challenge.LargeFileSort.Sorter
 			Span<byte> span = buffer.AsSpan();
 
 			int lineCount = CountLines(span);
-
 			var lines = new LineInfo[lineCount];
+
 			ExtractLines(span, lines);
 
 			switch (algo)
 			{
 				case AlgoType.QuickSort:
-					QuickSort.RunQuickSort(lines, 0, lines.Length - 1, span);
+					QuickSort.RunQuickSort(lines, 0, lines.Length - 1);
 					break;
 				case AlgoType.Timsort:
-					Timsort.RunTimsort(lines, span);
+					Timsort.RunTimsort(lines);
 					break;
 				default:
-					QuickSort.RunQuickSort(lines, 0, lines.Length - 1, span);
+					QuickSort.RunQuickSort(lines, 0, lines.Length - 1);
 					break;
 			}
-			
-			WriteSortedLines(outputFile, span, lines);
+
+			WriteSortedLines(outputFile, lines);
 		}
+
 
 		private static int CountLines(Span<byte> span)
 		{
@@ -62,40 +64,46 @@ namespace Challenge.LargeFileSort.Sorter
 				{
 					int lineEnd = i;
 					int lineLen = lineEnd - lineStart;
+
 					if (lineLen > 0 && lineIndex < lines.Length)
 					{
-						lines[lineIndex].LineStart = lineStart;
-						lines[lineIndex].LineLength = lineLen;
-
-						// Parse number and get TextStart
 						int dotIndex = span.Slice(lineStart, lineLen).IndexOf((byte)'.');
-						
-						// if there is no dot
-						if (dotIndex < 0)
-						{
-							continue;
-							//lines[lineIndex].Number = 0;
-							//lines[lineIndex].TextStart = lineStart + lineLen;
-						}
-						else
-						{
-							// Number before dot
-							var numberSpan = span.Slice(lineStart, dotIndex);
-							lines[lineIndex].Number = ParseLongFromAscii(numberSpan);
 
-							// Text starts after dot if exists
-							int textPos = lineStart + dotIndex + 2; // always dot and whitespace?
-							if (textPos > lineStart + lineLen)
-								textPos = lineStart + lineLen;
+						if (dotIndex >= 0)
+						{
+							// Parse the number
+							lines[lineIndex].Number = ParseLongFromAscii(span.Slice(lineStart, dotIndex));
 
-							lines[lineIndex].TextStart = textPos;
+							// Parse and cache the string
+							int textStart = lineStart + dotIndex + 2;
+							if (textStart < lineEnd)
+							{
+								lines[lineIndex].CachedText = ParseStringFromAscii(span.Slice(textStart, lineEnd - textStart));
+							}
 						}
 
 						lineIndex++;
 					}
+
 					lineStart = i + 1;
 				}
 			}
+		}
+
+
+		/// <summary>
+		/// Parses a string from a span of ASCII bytes.
+		/// </summary>
+		/// <param name="strSpan">The span containing ASCII bytes.</param>
+		/// <returns>The parsed string, or null if the span is empty.</returns>
+		private static string? ParseStringFromAscii(Span<byte> strSpan)
+		{
+			if (strSpan.IsEmpty)
+			{
+				return null;
+			}
+
+			return Encoding.ASCII.GetString(strSpan);
 		}
 
 		/// <summary>
@@ -115,24 +123,25 @@ namespace Challenge.LargeFileSort.Sorter
 			return result;
 		}
 
-
-
 		/// <summary>
-		/// 
+		/// Writes sorted lines to the output file using cached text from LineInfo.
 		/// </summary>
-		/// <param name="outputFile"></param>
-		/// <param name="span"></param>
-		/// <param name="lines"></param>
-		private static void WriteSortedLines(string outputFile, Span<byte> span, LineInfo[] lines)
+		/// <param name="outputFile">Path to the output file.</param>
+		/// <param name="lines">Sorted array of LineInfo.</param>
+		private static void WriteSortedLines(string outputFile, LineInfo[] lines)
 		{
-			// Larger buffer?
+			// Use a larger buffer for better write performance
 			using var outFs = new FileStream(outputFile, FileMode.Create, FileAccess.Write, FileShare.None, 1024 * 1024, FileOptions.SequentialScan);
+			using var writer = new StreamWriter(outFs, Encoding.ASCII, 1024 * 1024); // Use a StreamWriter for string writing
+
 			foreach (var line in lines)
 			{
-				var lineSpan = span.Slice(line.LineStart, line.LineLength);
-				outFs.Write(lineSpan);
-				outFs.WriteByte((byte)'\n');
+				if (!string.IsNullOrEmpty(line.CachedText))
+				{
+					writer.WriteLine($"{line.Number}. {line.CachedText}");
+				}
 			}
 		}
+
 	}
 }

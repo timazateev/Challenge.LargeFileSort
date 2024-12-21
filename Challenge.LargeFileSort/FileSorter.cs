@@ -4,7 +4,7 @@ using System.Collections.Concurrent;
 
 namespace Challenge.LargeFileSort
 {
-	class TestFileSorter
+	class FileSorter
 	{
 		static void Main(string[] args)
 		{
@@ -19,6 +19,18 @@ namespace Challenge.LargeFileSort
 
 			Console.Write($"Enter the algorithm ({AlgoType.Timsort} or {AlgoType.QuickSort}): ");
 			string algo = Console.ReadLine() ?? string.Empty;
+
+			int maxDegreeOfParallelism = Environment.ProcessorCount;
+			Console.WriteLine("Enter the maximum number of threads to use: ");
+			if (int.TryParse(Console.ReadLine(), out var maxThreads) && maxThreads > 0)
+			{
+				maxDegreeOfParallelism = maxThreads;
+			}
+
+			var parallelOptions = new ParallelOptions
+			{
+				MaxDegreeOfParallelism = maxDegreeOfParallelism
+			};
 
 			if (!int.TryParse(chunkSizeString, out var chunkSize))
 			{
@@ -45,16 +57,16 @@ namespace Challenge.LargeFileSort
 			logQueue.Enqueue($"[{DateTime.Now}] INFO: Split chunks started.\n");
 			Console.WriteLine($"[{DateTime.Now}] INFO: Split chunks started.\n"); //TODO: add log class for logging in one invoke
 			var splitWatch = System.Diagnostics.Stopwatch.StartNew();
-			List<string> chunkFiles = TestFileSorterHelpers.SplitIntoLineAlignedChunks(inputFile, chunkSize * 1024 * 1024);
+			List<string> chunkFiles = FileSorterHelpers.SplitIntoLineAlignedChunks(inputFile, chunkSize * 1024 * 1024);
 			splitWatch.Stop();
 			logQueue.Enqueue($"[{DateTime.Now}] INFO: Split chunks completed in {splitWatch.Elapsed.TotalSeconds:F2} seconds.\n");
 			Console.WriteLine($"[{DateTime.Now}] INFO: Split chunks completed in {splitWatch.Elapsed.TotalSeconds:F2} seconds.\n");
 
 			// Sort chunks in parallel
-			Parallel.ForEach(chunkFiles, (chunkFile, state, index) =>
+			Parallel.ForEach(chunkFiles, parallelOptions, (chunkFile, state, index) =>
 			{
 				var chunkWatch = System.Diagnostics.Stopwatch.StartNew();
-				logQueue.Enqueue($"[{DateTime.Now}] INFO: Chunk {index + 1} started.\n");
+				Console.WriteLine($"[{DateTime.Now}] INFO: Chunk {index + 1} started.\n");
 
 				// Storing in temp user files
 				string sortedChunk = chunkFile + ".sorted";
@@ -70,7 +82,7 @@ namespace Challenge.LargeFileSort
 			Console.WriteLine($"[{DateTime.Now}] INFO: Merge chunks started.\n");
 			var mergeWatch = System.Diagnostics.Stopwatch.StartNew();
 			var sortedChunkFiles = chunkFiles.Select(cf => cf + ".sorted").ToList();
-			TestFileSorterHelpers.MergeSortedChunks(sortedChunkFiles, outputFile);
+			FileSorterHelpers.MergeSortedChunks(sortedChunkFiles, outputFile);
 			mergeWatch.Stop();
 			Console.WriteLine($"[{DateTime.Now}] INFO: Merge chunks completed in {mergeWatch.Elapsed.TotalSeconds:F2} seconds.\n");
 			logQueue.Enqueue($"[{DateTime.Now}] INFO: Merge chunks completed in {mergeWatch.Elapsed.TotalSeconds:F2} seconds.\n");

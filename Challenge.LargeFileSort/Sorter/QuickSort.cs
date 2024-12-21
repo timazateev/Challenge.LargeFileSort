@@ -11,30 +11,28 @@ namespace Challenge.LargeFileSort.Sorter
 		/// <param name="low"></param>
 		/// <param name="high"></param>
 		/// <param name="span"></param>
-		public static void RunQuickSort(LineInfo[] lines, int low, int high, Span<byte> span)
+		public static void RunQuickSort(LineInfo[] lines, int low, int high)
 		{
 			const int InsertionSortThreshold = 64;
 
 			while (high - low > InsertionSortThreshold)
 			{
-				int pivot = FileChunkSorterHelpers.MedianOfThree(lines, low, high, span);
-				pivot = FileChunkSorterHelpers.Partition(lines, low, high, pivot, span);
+				int pivot = FileChunkSorterHelpers.MedianOfThree(lines, low, high);
+				pivot = FileChunkSorterHelpers.Partition(lines, low, high, pivot);
 
-				// Recursively sort the smaller part and leave the larger part in the loop to reduce the stack depth
 				if (pivot - low < high - pivot)
 				{
-					RunQuickSort(lines, low, pivot - 1, span);
+					RunQuickSort(lines, low, pivot - 1);
 					low = pivot + 1;
 				}
 				else
 				{
-					RunQuickSort(lines, pivot + 1, high, span);
+					RunQuickSort(lines, pivot + 1, high);
 					high = pivot - 1;
 				}
 			}
 
-			// For small subarrays we use insertion sort
-			InsertionSort.RunInsertionSort(lines, low, high, span);
+			InsertionSort.RunInsertionSort(lines, low, high);
 		}
 	}
 }

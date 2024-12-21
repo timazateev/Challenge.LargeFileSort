@@ -2,7 +2,7 @@
 
 namespace Challenge.LargeFileSort.Create
 {
-	class TestFileGenerator
+	class FileGenerator
 	{
 		static void Main(string[] args)
 		{
