@@ -1,0 +1,27 @@
+
+{
+    "Information" : [
+        "This file provides default values for the deployment wizard inside Visual Studio and the AWS Lambda commands added to the .NET Core CLI.",
+        "To learn more about the Lambda commands with the .NET Core CLI execute the following command at the command line in the project root directory.",
+        "dotnet lambda help",
+        "All the command line options for the Lambda command can be specified in this file."
+    ],
+    "profile"     : "personal",
+    "region"      : "eu-central-1",
+    "configuration" : "Release",
+    "function-architecture" : "x86_64",
+    "function-runtime"      : "dotnet8",
+    "function-memory-size"  : 3008,
+    "function-timeout"      : 900,
+    "function-handler"      : "FileGeneratorLambda::FileGeneratorLambda.FileGeneratorLambdaHandler::Function",
+    "framework"             : "net8.0",
+    "function-name"         : "ChallengeLargeFileSortFileGenerationLambda",
+    "package-type"          : "Zip",
+    "function-role"         : "arn:aws:iam::626635408730:role/lambda_exec_Challenge.LargeFileSort.FileGenerationLambda",
+    "function-subnets"      : "subnet-0b5b65467228740c8",
+    "function-security-groups" : "sg-040752fc6956db07f",
+    "tracing-mode"             : "PassThrough",
+    "environment-variables"    : "",
+    "image-tag"                : "",
+    "function-description"     : ""
+}

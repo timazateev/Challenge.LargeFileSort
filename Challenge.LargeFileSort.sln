@@ -5,7 +5,25 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Challenge.LargeFileSort", "Challenge.LargeFileSort\Challenge.LargeFileSort.csproj", "{60204BEE-7A12-4403-A395-6EA8849D624E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Challenge.LargeFileSort.Create", "Challenge.LargeFileSort.Create\Challenge.LargeFileSort.Create.csproj", "{1958178E-4A72-4363-8067-810BE6294034}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Challenge.LargeFileSort.Create", "Challenge.LargeFileSort.Create\Challenge.LargeFileSort.Create.csproj", "{1958178E-4A72-4363-8067-810BE6294034}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileGeneratorLambda", "FileGeneratorLambda\FileGeneratorLambda.csproj", "{383149BF-89EA-4661-BBF9-49931B89DF15}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileGeneratorLambda.Tests", "FileGeneratorLambda.Tests\FileGeneratorLambda.Tests.csproj", "{EC57335A-D477-4688-84BE-A025EB88A087}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileSplitterLambda", "FileSplitterLambda\FileSplitterLambda.csproj", "{D0DA5D09-6B84-4637-9700-622609E31BC6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileSplitterLambda.Tests", "FileSplitterLambda.Tests\FileSplitterLambda.Tests.csproj", "{B42AFA38-F44E-4B3F-8B18-8A3D8558A181}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChunkSorterLambda", "ChunkSorterLambda\ChunkSorterLambda.csproj", "{707972D1-91E6-4EF1-B619-D565A334A6C8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChunkSorterLambda.Tests", "ChunkSorterLambda.Tests\ChunkSorterLambda.Tests.csproj", "{9FAA1C78-325C-400E-A4E1-589D07CDA783}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MergeChunksLambda", "MergeChunksLambda\MergeChunksLambda.csproj", "{D37D067E-DCA9-43EC-A6C5-07B30B980300}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MergeChunksLambda.Tests", "MergeChunksLambda.Tests\MergeChunksLambda.Tests.csproj", "{0A770354-6A45-4DD3-B1B0-9BED605C635E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LambdaTest", "LambdaTest", "{6753B330-00DB-40CF-BE52-B3D42E714410}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +39,47 @@ Global
 		{1958178E-4A72-4363-8067-810BE6294034}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1958178E-4A72-4363-8067-810BE6294034}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1958178E-4A72-4363-8067-810BE6294034}.Release|Any CPU.Build.0 = Release|Any CPU
+		{383149BF-89EA-4661-BBF9-49931B89DF15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{383149BF-89EA-4661-BBF9-49931B89DF15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{383149BF-89EA-4661-BBF9-49931B89DF15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{383149BF-89EA-4661-BBF9-49931B89DF15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC57335A-D477-4688-84BE-A025EB88A087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC57335A-D477-4688-84BE-A025EB88A087}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC57335A-D477-4688-84BE-A025EB88A087}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC57335A-D477-4688-84BE-A025EB88A087}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0DA5D09-6B84-4637-9700-622609E31BC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0DA5D09-6B84-4637-9700-622609E31BC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0DA5D09-6B84-4637-9700-622609E31BC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0DA5D09-6B84-4637-9700-622609E31BC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B42AFA38-F44E-4B3F-8B18-8A3D8558A181}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B42AFA38-F44E-4B3F-8B18-8A3D8558A181}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B42AFA38-F44E-4B3F-8B18-8A3D8558A181}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B42AFA38-F44E-4B3F-8B18-8A3D8558A181}.Release|Any CPU.Build.0 = Release|Any CPU
+		{707972D1-91E6-4EF1-B619-D565A334A6C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{707972D1-91E6-4EF1-B619-D565A334A6C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{707972D1-91E6-4EF1-B619-D565A334A6C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{707972D1-91E6-4EF1-B619-D565A334A6C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FAA1C78-325C-400E-A4E1-589D07CDA783}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FAA1C78-325C-400E-A4E1-589D07CDA783}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FAA1C78-325C-400E-A4E1-589D07CDA783}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FAA1C78-325C-400E-A4E1-589D07CDA783}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D37D067E-DCA9-43EC-A6C5-07B30B980300}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D37D067E-DCA9-43EC-A6C5-07B30B980300}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D37D067E-DCA9-43EC-A6C5-07B30B980300}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D37D067E-DCA9-43EC-A6C5-07B30B980300}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A770354-6A45-4DD3-B1B0-9BED605C635E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A770354-6A45-4DD3-B1B0-9BED605C635E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A770354-6A45-4DD3-B1B0-9BED605C635E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A770354-6A45-4DD3-B1B0-9BED605C635E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EC57335A-D477-4688-84BE-A025EB88A087} = {6753B330-00DB-40CF-BE52-B3D42E714410}
+		{B42AFA38-F44E-4B3F-8B18-8A3D8558A181} = {6753B330-00DB-40CF-BE52-B3D42E714410}
+		{9FAA1C78-325C-400E-A4E1-589D07CDA783} = {6753B330-00DB-40CF-BE52-B3D42E714410}
+		{0A770354-6A45-4DD3-B1B0-9BED605C635E} = {6753B330-00DB-40CF-BE52-B3D42E714410}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {742646D4-EB2F-48C2-B058-EB5590F00D8C}
