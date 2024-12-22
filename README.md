@@ -4,6 +4,36 @@ This document explains how to use the **FileGenerator** and **FileSorter** tools
 
 ---
 
+## Getting Started
+
+### Cloning the Repository
+To use the tools, first clone the repository to your local machine:
+```bash
+git clone <repository-url>
+cd Challenge.LargeFileSort
+```
+
+### Building the Projects
+Each tool is located in its respective project folder and needs to be built before execution. Use your preferred IDE (e.g., Visual Studio) or .NET CLI to build the projects:
+
+1. **FileGenerator**:
+   Navigate to the `Challenge.LargeFileSort.Create` folder and build the project:
+   ```bash
+   cd Challenge.LargeFileSort.Create
+   dotnet build
+   ```
+
+2. **FileSorter**:
+   Navigate to the `Challenge.LargeFileSort` folder and build the project:
+   ```bash
+   cd Challenge.LargeFileSort
+   dotnet build
+   ```
+
+After building, the executables will be available in the `bin\Debug\net8.0` folder of each project.
+
+---
+
 ## 1. FileGenerator
 
 ### Description
@@ -33,7 +63,7 @@ Challenge.LargeFileSort.Create.exe <outputFile> <targetSizeGB>
 Challenge.LargeFileSort.Create.exe "C:\TestFiles\largeFile.txt" 1.5
 ```
 
-This command creates a file `largeFile.txt` of size 1.5 GB in the `C:\TestFiles` directory.
+This command creates a file `largeFile.txt` of size 1.5 GB in the `C:\TestFiles` directory. A log file `largeFile.txt.log` is created alongside the output file, containing detailed information about the generation process.
 
 #### Interactive Mode
 
@@ -50,7 +80,7 @@ Enter the output file path: C:\TestFiles\largeFile.txt
 Enter the target file size in gigabytes (GB): 1.5
 ```
 
-This will create the file as specified interactively.
+This will create the file as specified interactively. A log file `largeFile.txt.log` is generated in the same directory as the output file.
 
 ---
 
@@ -86,7 +116,7 @@ Challenge.LargeFileSort.exe <inputFile> <outputFile> <algorithm> <chunkSizeMB> [
 Challenge.LargeFileSort.exe "C:\TestFiles\largeFile.txt" "C:\TestFiles\sortedFile.txt" QuickSort 128 4
 ```
 
-This command sorts `largeFile.txt` into chunks of 128 MB each, uses `QuickSort` as the sorting algorithm, and processes the chunks using up to 4 threads. The sorted result is saved as `sortedFile.txt`.
+This command sorts `largeFile.txt` into chunks of 128 MB each, uses `QuickSort` as the sorting algorithm, and processes the chunks using up to 4 threads. The sorted result is saved as `sortedFile.txt`. A log file `sortedFile.txt.log` is created alongside the output file.
 
 #### Interactive Mode
 
@@ -106,7 +136,7 @@ Enter the algorithm (Timsort or QuickSort): QuickSort
 Enter the maximum number of threads to use (optional, press Enter to use default): 4
 ```
 
-This sorts the file based on the inputs provided.
+This sorts the file based on the inputs provided. A log file `sortedFile.txt.log` is generated in the same directory as the output file.
 
 ---
 
@@ -121,7 +151,7 @@ This sorts the file based on the inputs provided.
 
 2. **Logs:**
 
-   - Both tools log their operations to a file named `sort_log.txt`. Logs include timestamps and details of each step.
+   - Both tools log their operations to a file named after the output file with the `.log` extension (e.g., `largeFile.txt.log`, `sortedFile.txt.log`). Logs include timestamps and details of each step.
 
 3. **Performance Considerations:**
 
@@ -137,5 +167,4 @@ This sorts the file based on the inputs provided.
 2. **Insufficient Disk Space:**
    - Ensure enough free space is available for temporary and output files.
 3. **Log File Review:**
-   - Check `sort_log.txt` for detailed information on errors or warnings.
-
+   - Check the generated log file for detailed information on errors or warnings.
