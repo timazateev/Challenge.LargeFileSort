@@ -5,7 +5,12 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Challenge.LargeFileSort", "Challenge.LargeFileSort\Challenge.LargeFileSort.csproj", "{60204BEE-7A12-4403-A395-6EA8849D624E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Challenge.LargeFileSort.Create", "Challenge.LargeFileSort.Create\Challenge.LargeFileSort.Create.csproj", "{1958178E-4A72-4363-8067-810BE6294034}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Challenge.LargeFileSort.Create", "Challenge.LargeFileSort.Create\Challenge.LargeFileSort.Create.csproj", "{1958178E-4A72-4363-8067-810BE6294034}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1B47FF6A-C780-44B7-939A-077F0B8030C5}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
