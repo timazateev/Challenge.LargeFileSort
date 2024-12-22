@@ -16,12 +16,12 @@ This document explains how to use the **FileGenerator** and **FileSorter** tools
 
 Navigate to the project folder where the executable is located:
 ```bash
-cd {PathToRepository}\Challenge.LargeFileSort\Challenge.LargeFileSort\bin\Debug\net8.0
+cd {PathToRepository}\Challenge.LargeFileSort\Challenge.LargeFileSort.Create\bin\Debug\net8.0
 ```
 
 Run the command:
 ```bash
-FileGenerator.exe <outputFile> <targetSizeGB>
+Challenge.LargeFileSort.Create.exe <outputFile> <targetSizeGB>
 ```
 
 - **outputFile**: Path to the output file.
@@ -30,7 +30,7 @@ FileGenerator.exe <outputFile> <targetSizeGB>
 #### Example with Parameters
 
 ```bash
-FileGenerator.exe "C:\TestFiles\largeFile.txt" 1.5
+Challenge.LargeFileSort.Create.exe "C:\TestFiles\largeFile.txt" 1.5
 ```
 
 This command creates a file `largeFile.txt` of size 1.5 GB in the `C:\TestFiles` directory.
@@ -71,7 +71,7 @@ cd {PathToRepository}\Challenge.LargeFileSort\Challenge.LargeFileSort\bin\Debug\
 
 Run the command:
 ```bash
-FileSorter.exe <inputFile> <outputFile> <algorithm> <chunkSizeMB> [<maxThreads>]
+Challenge.LargeFileSort.exe <inputFile> <outputFile> <algorithm> <chunkSizeMB> [<maxThreads>]
 ```
 
 - **inputFile**: Path to the input file to be sorted.
@@ -83,7 +83,7 @@ FileSorter.exe <inputFile> <outputFile> <algorithm> <chunkSizeMB> [<maxThreads>]
 #### Example with Parameters
 
 ```bash
-FileSorter.exe "C:\TestFiles\largeFile.txt" "C:\TestFiles\sortedFile.txt" QuickSort 128 4
+Challenge.LargeFileSort.exe "C:\TestFiles\largeFile.txt" "C:\TestFiles\sortedFile.txt" QuickSort 128 4
 ```
 
 This command sorts `largeFile.txt` into chunks of 128 MB each, uses `QuickSort` as the sorting algorithm, and processes the chunks using up to 4 threads. The sorted result is saved as `sortedFile.txt`.
@@ -93,7 +93,7 @@ This command sorts `largeFile.txt` into chunks of 128 MB each, uses `QuickSort` 
 If no parameters are provided, **FileSorter** prompts for input interactively.
 
 ```bash
-FileSorter.exe
+Challenge.LargeFileSort.exe
 ```
 
 **Program Output:**
