@@ -60,7 +60,7 @@ Challenge.LargeFileSort.Create.exe <outputFile> <targetSizeGB>
 #### Example with Parameters
 
 ```bash
-Challenge.LargeFileSort.Create.exe "C:\TestFiles\largeFile.txt" 1.5
+.\Challenge.LargeFileSort.Create.exe "C:\TestFiles\largeFile.txt" 1.5
 ```
 
 This command creates a file `largeFile.txt` of size 1.5 GB in the `C:\TestFiles` directory. A log file `largeFile.txt.log` is created alongside the output file, containing detailed information about the generation process.
@@ -70,7 +70,7 @@ This command creates a file `largeFile.txt` of size 1.5 GB in the `C:\TestFiles`
 If no parameters are provided, **FileGenerator** prompts for input interactively.
 
 ```bash
-FileGenerator.exe
+.\Challenge.LargeFileSort.Create.exe
 ```
 
 **Program Output:**
@@ -113,7 +113,7 @@ Challenge.LargeFileSort.exe <inputFile> <outputFile> <algorithm> <chunkSizeMB> [
 #### Example with Parameters
 
 ```bash
-Challenge.LargeFileSort.exe "C:\TestFiles\largeFile.txt" "C:\TestFiles\sortedFile.txt" QuickSort 128 4
+.\Challenge.LargeFileSort.exe "C:\TestFiles\largeFile.txt" "C:\TestFiles\sortedFile.txt" QuickSort 128 4
 ```
 
 This command sorts `largeFile.txt` into chunks of 128 MB each, uses `QuickSort` as the sorting algorithm, and processes the chunks using up to 4 threads. The sorted result is saved as `sortedFile.txt`. A log file `sortedFile.txt.log` is created alongside the output file.
@@ -123,7 +123,7 @@ This command sorts `largeFile.txt` into chunks of 128 MB each, uses `QuickSort` 
 If no parameters are provided, **FileSorter** prompts for input interactively.
 
 ```bash
-Challenge.LargeFileSort.exe
+.\Challenge.LargeFileSort.exe
 ```
 
 **Program Output:**
@@ -164,7 +164,34 @@ This sorts the file based on the inputs provided. A log file `sortedFile.txt.log
 
 1. **Input File Not Found:**
    - Ensure the input file path is correct and accessible.
+
 2. **Insufficient Disk Space:**
    - Ensure enough free space is available for temporary and output files.
-3. **Log File Review:**
+   - For example, if you are creating and sorting a 100 GB file, you will need approximately 400 GB of free space: 100 GB for the input file, 100 GB for split chunks, 100 GB for sorted chunks, and 100 GB for the output file.
+
+3. **Temporary Files Deletion:**
+   - The program automatically removes temporary files only upon successful completion. If the program is interrupted by the user or encounters exceptions, temporary files will not be deleted automatically.
+   - You can manually delete temporary files from the system's default temporary directory. On Windows, this is typically located at:
+     ```
+     C:\Users\{username}\AppData\Local\Temp
+     ```
+
+4. **Log File Review:**
    - Check the generated log file for detailed information on errors or warnings.
+
+## Test Runs and Examples of Use
+
+### File 75 GB with 256 MB chunk size in 5 threads (on 8 logical core processor)
+```
+All chunks sorted and merged. Duration: 6248.36 seconds. Output file size: 78533.32 MB.
+```
+
+### Timsort 8 threads 128 MB chunk (on 8 logical core processor)
+```
+All chunks sorted and merged. Duration: 41.39 seconds. Output file size: 1047.11 MB.
+```
+
+### QuickSort 8 threads 128 MB chunk (on 8 logical core processor)
+```
+All chunks sorted and merged. Duration: 428.85 seconds. Output file size: 10471.11 MB.
+```
